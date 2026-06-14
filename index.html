@@ -20,6 +20,10 @@
         textarea:focus, input:focus, select:focus { outline: none; border-color: #0052D9; box-shadow: 0 0 0 2px rgba(0,82,217,0.08); }
         .form-scroll { max-height: calc(100vh - 180px); overflow-y: auto; }
         .output-scroll { max-height: calc(100vh - 180px); overflow-y: auto; }
+        .hero-bg { position: relative; overflow: hidden; }
+        .hero-bg::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,82,217,0.3) 0%, transparent 70%); border-radius: 50%; }
+        .hero-bg::after { content: ''; position: absolute; bottom: -30%; left: 10%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(34,211,238,0.15) 0%, transparent 70%); border-radius: 50%; }
+        .hero-dots { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px); background-size: 24px 24px; }
     </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -39,13 +43,22 @@
     </div>
 </nav>
 
-<!-- Hero (compact) -->
-<section class="pt-12 pb-8 bg-gradient-to-br from-tx-dark via-blue-900 to-tx">
-    <div class="max-w-6xl mx-auto px-6">
+<!-- Hero -->
+<section class="hero-bg pt-14 pb-10 bg-gradient-to-br from-tx-dark via-blue-900 to-tx relative">
+    <div class="hero-dots"></div>
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
         <div class="max-w-2xl text-white">
-            <div class="tag bg-white/15 text-white mb-3">AI-HR 培训生线上实战营</div>
-            <h1 class="text-2xl md:text-3xl font-bold leading-snug mb-2">FeedbackCraft</h1>
-            <p class="text-blue-200 text-sm leading-relaxed">输入员工信息和关键事件，AI 即刻生成结构化绩效反馈。支持三种语气风格。</p>
+            <div class="flex items-center gap-2 mb-4">
+                <span class="tag bg-white/15 text-white/90">AI Agent Skill</span>
+                <span class="tag bg-accent/30 text-cyan-200">开源免费</span>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold leading-snug mb-3">智能绩效反馈生成器</h1>
+            <p class="text-blue-200 text-base leading-relaxed mb-5">输入员工信息和关键事件，AI 即刻生成结构化、专业级的绩效反馈。<br>支持三种语气风格，适配不同评估场景。</p>
+            <div class="flex items-center gap-6 text-sm text-blue-200/80">
+                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full"></span>3 种语气风格</span>
+                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full"></span>5 部分结构化输出</span>
+                <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full"></span>零服务器依赖</span>
+            </div>
         </div>
     </div>
 </section>
