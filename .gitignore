@@ -1,5 +1,18 @@
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Playwright logs
 .playwright-mcp/
+
+# Claude settings
 .claude/
+
+# Screenshots (development only)
 *.png
 !logo-fdc.png
-!favicon-*.png
+!favicon-32.png
