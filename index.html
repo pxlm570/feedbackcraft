@@ -18,8 +18,6 @@
         .tag-gentle { background: #D1FAE5; color: #065F46; }
         .tag-direct { background: #FEF3C7; color: #92400E; }
         textarea:focus, input:focus, select:focus { outline: none; border-color: #0052D9; box-shadow: 0 0 0 2px rgba(0,82,217,0.08); }
-        .form-scroll { max-height: calc(100vh - 180px); overflow-y: auto; }
-        .output-scroll { max-height: calc(100vh - 180px); overflow-y: auto; }
         .hero-jb { background: #0D1117; position: relative; overflow: hidden; }
         .hero-jb::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 600px; background: radial-gradient(ellipse, rgba(0,122,255,0.15) 0%, rgba(0,82,217,0.08) 40%, transparent 70%); pointer-events: none; }
         .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -71,11 +69,16 @@
 </section>
 
 <!-- Generator -->
-<section id="generator" class="bg-gray-50" style="height: calc(100vh - 48px - 120px); min-height: 500px;">
-    <div class="max-w-6xl mx-auto px-6 h-full py-4">
-        <div class="grid lg:grid-cols-2 gap-5 h-full">
+<section id="generator" class="bg-gray-50 py-10">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="mb-6 fade-in">
+            <span class="text-tx text-xs font-medium uppercase tracking-wider">Online Demo</span>
+            <h2 class="text-2xl font-bold text-tx-dark mt-1">在线体验</h2>
+            <p class="text-gray-400 mt-1 text-sm">填写员工信息和关键事件，点击生成即可获得结构化绩效反馈</p>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-6">
             <!-- Input -->
-            <div class="bg-white rounded-xl border border-gray-200 p-5 flex flex-col form-scroll">
+            <div class="bg-white rounded-xl border border-gray-200 p-6">
                 <h3 class="font-semibold text-tx-dark mb-3 text-sm">员工信息</h3>
                 <div class="grid grid-cols-2 gap-3 mb-3">
                     <div><label class="block text-[11px] text-gray-400 mb-0.5">姓名 *</label><input id="emp-name" type="text" placeholder="张伟" class="w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm"></div>
@@ -117,12 +120,12 @@
                 </div>
             </div>
             <!-- Output -->
-            <div class="bg-white rounded-xl border border-gray-200 p-5 flex flex-col">
+            <div class="bg-white rounded-xl border border-gray-200 p-6 flex flex-col">
                 <div class="flex items-center justify-between mb-3">
                     <h3 class="font-semibold text-tx-dark text-sm">生成结果</h3>
                     <button onclick="copyFeedback()" class="text-[11px] text-gray-400 hover:text-tx transition-colors hidden" id="copy-btn">复制</button>
                 </div>
-                <div id="output-area" class="flex-1 bg-gray-50 rounded-lg p-4 text-sm text-gray-600 leading-relaxed output-scroll">
+                <div id="output-area" class="flex-1 bg-gray-50 rounded-lg p-4 text-sm text-gray-600 leading-relaxed min-h-[300px]">
                     <div class="text-center text-gray-300 py-16">
                         <div class="text-3xl mb-2">&#128221;</div>
                         <p class="text-sm">填写左侧信息并点击"生成反馈"</p>
