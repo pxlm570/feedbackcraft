@@ -1,3 +1,5 @@
 .playwright-mcp/
 .claude/
 *.png
+!logo-fdc.png
+!favicon-*.png
