@@ -3,42 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智能绩效反馈生成器 | AI Performance Feedback Generator</title>
+    <title>FeedbackCraft - 智能绩效反馈生成器</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'tx': '#0052D9',
-                        'tx-light': '#E8F0FE',
-                        'tx-dark': '#1A1A2E',
-                    }
-                }
-            }
+            theme: { extend: { colors: { 'tx': '#0052D9', 'tx-dark': '#1A1A2E' } } }
         }
     </script>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
-        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .tag { display: inline-block; padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 500; }
+        html { scroll-behavior: smooth; }
+        .tag { display: inline-block; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 500; }
         .tag-formal { background: #DBEAFE; color: #1E40AF; }
         .tag-gentle { background: #D1FAE5; color: #065F46; }
         .tag-direct { background: #FEF3C7; color: #92400E; }
-        textarea:focus, input:focus, select:focus { outline: none; border-color: #0052D9; box-shadow: 0 0 0 3px rgba(0,82,217,0.1); }
+        textarea:focus, input:focus, select:focus { outline: none; border-color: #0052D9; box-shadow: 0 0 0 2px rgba(0,82,217,0.08); }
+        .form-scroll { max-height: calc(100vh - 180px); overflow-y: auto; }
+        .output-scroll { max-height: calc(100vh - 180px); overflow-y: auto; }
     </style>
 </head>
 <body class="bg-white text-gray-800">
 
 <!-- Nav -->
-<nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100">
-    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+<nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100 h-12">
+    <div class="max-w-6xl mx-auto px-6 h-12 flex items-center justify-between">
         <div class="flex items-center gap-2">
-            <div class="w-7 h-7 bg-tx rounded-md flex items-center justify-center"><span class="text-white text-xs font-bold">PF</span></div>
-            <span class="font-semibold text-tx-dark text-sm">Performance Feedback Generator</span>
+            <div class="w-6 h-6 bg-tx rounded flex items-center justify-center"><span class="text-white text-[10px] font-bold">FC</span></div>
+            <span class="font-semibold text-tx-dark text-sm">FeedbackCraft</span>
         </div>
-        <div class="hidden md:flex items-center gap-6 text-xs text-gray-400">
+        <div class="hidden md:flex items-center gap-5 text-xs text-gray-400">
             <a href="#generator" class="hover:text-tx transition-colors">在线体验</a>
             <a href="#skill-section" class="hover:text-tx transition-colors">Skill 开源</a>
             <a href="#about" class="hover:text-tx transition-colors">关于</a>
@@ -46,61 +39,43 @@
     </div>
 </nav>
 
-<!-- Hero -->
-<section class="pt-24 pb-12 bg-gradient-to-br from-tx-dark via-blue-900 to-tx">
+<!-- Hero (compact) -->
+<section class="pt-12 pb-8 bg-gradient-to-br from-tx-dark via-blue-900 to-tx">
     <div class="max-w-6xl mx-auto px-6">
         <div class="max-w-2xl text-white">
-            <div class="tag bg-white/15 text-white mb-5">AI-HR 培训生线上实战营</div>
-            <h1 class="text-3xl md:text-4xl font-bold leading-snug mb-4">智能绩效反馈生成器</h1>
-            <p class="text-blue-200 text-base mb-6 leading-relaxed">输入员工信息和关键事件，AI 即刻生成结构化、专业级的绩效反馈。支持三种语气风格，适配不同场景。</p>
-            <a href="#generator" class="inline-flex items-center gap-2 bg-white text-tx px-5 py-2.5 rounded-lg font-medium text-sm hover:bg-blue-50 transition-colors">
-                立即体验
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </a>
+            <div class="tag bg-white/15 text-white mb-3">AI-HR 培训生线上实战营</div>
+            <h1 class="text-2xl md:text-3xl font-bold leading-snug mb-2">FeedbackCraft</h1>
+            <p class="text-blue-200 text-sm leading-relaxed">输入员工信息和关键事件，AI 即刻生成结构化绩效反馈。支持三种语气风格。</p>
         </div>
     </div>
 </section>
 
-<!-- Stats Bar -->
-<section class="py-8 border-y border-gray-100">
-    <div class="max-w-6xl mx-auto px-6 grid grid-cols-3 gap-4 text-center">
-        <div><div class="text-2xl font-bold text-tx">10x</div><div class="text-xs text-gray-400 mt-1">效率提升</div></div>
-        <div><div class="text-2xl font-bold text-tx">3</div><div class="text-xs text-gray-400 mt-1">语气风格</div></div>
-        <div><div class="text-2xl font-bold text-tx">5</div><div class="text-xs text-gray-400 mt-1">结构化输出</div></div>
-    </div>
-</section>
+<!-- Generator (Full Screen) -->
+<section id="generator" class="bg-gray-50" style="height: calc(100vh - 48px - 120px); min-height: 500px;">
+    <div class="max-w-6xl mx-auto px-6 h-full py-4">
+        <div class="grid lg:grid-cols-2 gap-5 h-full">
 
-<!-- Generator -->
-<section id="generator" class="py-16 md:py-24 bg-gray-50">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="mb-10">
-            <span class="text-tx text-xs font-medium uppercase tracking-wider">Online Demo</span>
-            <h2 class="text-2xl md:text-3xl font-bold text-tx-dark mt-1">在线体验</h2>
-            <p class="text-gray-400 mt-2 text-sm">填写以下信息，点击生成即可获得结构化绩效反馈</p>
-        </div>
-
-        <div class="grid lg:grid-cols-2 gap-8">
-            <!-- Input Form -->
-            <div class="bg-white rounded-xl border border-gray-200 p-6">
-                <h3 class="font-semibold text-tx-dark mb-4 text-sm">员工信息</h3>
-                <div class="grid grid-cols-2 gap-4 mb-4">
+            <!-- Left: Input Form -->
+            <div class="bg-white rounded-xl border border-gray-200 p-5 flex flex-col form-scroll">
+                <h3 class="font-semibold text-tx-dark mb-3 text-sm">员工信息</h3>
+                <div class="grid grid-cols-2 gap-3 mb-3">
                     <div>
-                        <label class="block text-xs text-gray-500 mb-1">姓名 *</label>
-                        <input id="emp-name" type="text" placeholder="张伟" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                        <label class="block text-[11px] text-gray-400 mb-0.5">姓名 *</label>
+                        <input id="emp-name" type="text" placeholder="张伟" class="w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs text-gray-500 mb-1">岗位 *</label>
-                        <input id="emp-role" type="text" placeholder="高级后端工程师" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                        <label class="block text-[11px] text-gray-400 mb-0.5">岗位 *</label>
+                        <input id="emp-role" type="text" placeholder="高级后端工程师" class="w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm">
                     </div>
                 </div>
-                <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="grid grid-cols-2 gap-3 mb-3">
                     <div>
-                        <label class="block text-xs text-gray-500 mb-1">评估周期 *</label>
-                        <input id="emp-period" type="text" placeholder="Q2 2026" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                        <label class="block text-[11px] text-gray-400 mb-0.5">评估周期 *</label>
+                        <input id="emp-period" type="text" placeholder="Q2 2026" class="w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm">
                     </div>
                     <div>
-                        <label class="block text-xs text-gray-500 mb-1">语气风格 *</label>
-                        <select id="tone" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white">
+                        <label class="block text-[11px] text-gray-400 mb-0.5">语气风格 *</label>
+                        <select id="tone" class="w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm bg-white">
                             <option value="formal">正式（HR系统）</option>
                             <option value="gentle">温和（辅导型）</option>
                             <option value="direct">直接（数据驱动）</option>
@@ -108,83 +83,82 @@
                     </div>
                 </div>
 
-                <h3 class="font-semibold text-tx-dark mb-3 mt-6 text-sm">关键成就（2-5条）</h3>
-                <div id="achievements-container" class="space-y-2 mb-3">
-                    <input type="text" placeholder="例：主导支付系统微服务化改造，按期交付零事故" class="achievement-input w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
-                    <input type="text" placeholder="例：核心API响应时间从200ms降至120ms，降幅40%" class="achievement-input w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                <h3 class="font-semibold text-tx-dark mb-2 text-sm">关键成就 <span class="text-gray-400 font-normal">(2-5条)</span></h3>
+                <div id="achievements-container" class="space-y-1.5 mb-2">
+                    <input type="text" placeholder="例：主导支付系统微服务化改造，按期交付零事故" class="achievement-input w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm">
+                    <input type="text" placeholder="例：核心API响应时间从200ms降至120ms" class="achievement-input w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm">
                 </div>
-                <button onclick="addInput('achievements-container','achievement-input','成就')" class="text-tx text-xs hover:underline mb-6">+ 添加更多成就</button>
+                <button onclick="addInput('achievements-container','achievement-input','成就')" class="text-tx text-[11px] hover:underline mb-3 text-left">+ 添加</button>
 
-                <h3 class="font-semibold text-tx-dark mb-3 text-sm">改进领域（1-3条）</h3>
-                <div id="improvements-container" class="space-y-2 mb-3">
-                    <input type="text" placeholder="例：技术文档输出不够及时" class="improvement-input w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
-                    <input type="text" placeholder="例：跨团队沟通主动性有待提升" class="improvement-input w-full px-3 py-2 border border-gray-200 rounded-lg text-sm">
+                <h3 class="font-semibold text-tx-dark mb-2 text-sm">改进领域 <span class="text-gray-400 font-normal">(1-3条)</span></h3>
+                <div id="improvements-container" class="space-y-1.5 mb-2">
+                    <input type="text" placeholder="例：技术文档输出不够及时" class="improvement-input w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm">
+                    <input type="text" placeholder="例：跨团队沟通主动性有待提升" class="improvement-input w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm">
                 </div>
-                <button onclick="addInput('improvements-container','improvement-input','改进点')" class="text-tx text-xs hover:underline mb-6">+ 添加更多改进点</button>
+                <button onclick="addInput('improvements-container','improvement-input','改进点')" class="text-tx text-[11px] hover:underline mb-4 text-left">+ 添加</button>
 
-                <div class="flex gap-3">
-                    <button onclick="generateFeedback()" class="flex-1 bg-tx text-white py-2.5 rounded-lg font-medium text-sm hover:bg-blue-700 transition-colors">生成反馈</button>
-                    <button onclick="fillExample()" class="px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-500 hover:border-tx hover:text-tx transition-colors">填入示例</button>
+                <div class="flex gap-2 mt-auto">
+                    <button onclick="generateFeedback()" class="flex-1 bg-tx text-white py-2 rounded-lg font-medium text-sm hover:bg-blue-700 transition-colors">生成反馈</button>
+                    <button onclick="fillExample()" class="px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-500 hover:border-tx hover:text-tx transition-colors">填入示例</button>
                 </div>
             </div>
 
-            <!-- Output -->
-            <div class="bg-white rounded-xl border border-gray-200 p-6 flex flex-col">
-                <div class="flex items-center justify-between mb-4">
+            <!-- Right: Output -->
+            <div class="bg-white rounded-xl border border-gray-200 p-5 flex flex-col">
+                <div class="flex items-center justify-between mb-3">
                     <h3 class="font-semibold text-tx-dark text-sm">生成结果</h3>
-                    <button onclick="copyFeedback()" class="text-xs text-gray-400 hover:text-tx transition-colors" id="copy-btn">复制</button>
+                    <button onclick="copyFeedback()" class="text-[11px] text-gray-400 hover:text-tx transition-colors hidden" id="copy-btn">复制</button>
                 </div>
-                <div id="output-area" class="flex-1 bg-gray-50 rounded-lg p-5 text-sm text-gray-600 leading-relaxed min-h-[400px]">
-                    <div class="text-center text-gray-300 py-20">
-                        <div class="text-4xl mb-3">&#128221;</div>
-                        <p>填写左侧信息并点击"生成反馈"</p>
+                <div id="output-area" class="flex-1 bg-gray-50 rounded-lg p-4 text-sm text-gray-600 leading-relaxed output-scroll">
+                    <div class="text-center text-gray-300 py-16">
+                        <div class="text-3xl mb-2">&#128221;</div>
+                        <p class="text-sm">填写左侧信息并点击"生成反馈"</p>
                         <p class="text-xs mt-1">或点击"填入示例"快速体验</p>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
 
 <!-- Skill Section -->
-<section id="skill-section" class="py-16 md:py-24 bg-white">
+<section id="skill-section" class="py-14 bg-white">
     <div class="max-w-6xl mx-auto px-6">
-        <div class="mb-10">
+        <div class="mb-8">
             <span class="text-tx text-xs font-medium uppercase tracking-wider">Open Source Skill</span>
-            <h2 class="text-2xl md:text-3xl font-bold text-tx-dark mt-1">Skill 开源</h2>
-            <p class="text-gray-400 mt-2 text-sm">将完整能力安装到你的 AI 编程助手中</p>
+            <h2 class="text-2xl font-bold text-tx-dark mt-1">Skill 开源</h2>
+            <p class="text-gray-400 mt-1 text-sm">将完整 AI 能力安装到你的编程助手中</p>
         </div>
-
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="bg-gray-50 rounded-xl p-6 border border-gray-100">
-                <h3 class="font-semibold text-tx-dark mb-3">什么是 Skill？</h3>
-                <p class="text-gray-500 text-sm leading-relaxed mb-4">Skill 是一个 Markdown 配置文件，定义了 AI 助手在特定场景下的行为规范。安装后，AI 会按照 Skill 中的流程和质量标准来生成绩效反馈。</p>
-                <div class="bg-white rounded-lg p-4 border border-gray-100 font-mono text-xs text-gray-600 space-y-1">
-                    <div><span class="text-tx"># 安装到 Claude Code</span></div>
-                    <div>~/.claude/skills/performance-feedback-generator/SKILL.md</div>
-                    <div class="mt-2"><span class="text-tx"># 安装到 Codex</span></div>
-                    <div>~/.codex/skills/performance-feedback-generator/SKILL.md</div>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+                <h3 class="font-semibold text-tx-dark mb-2 text-sm">什么是 Skill？</h3>
+                <p class="text-gray-500 text-xs leading-relaxed mb-3">Skill 是一个 Markdown 配置文件，定义了 AI 助手在特定场景下的行为规范。安装后，AI 会按照 Skill 中的流程和质量标准来生成绩效反馈。</p>
+                <div class="bg-white rounded-lg p-3 border border-gray-100 font-mono text-[11px] text-gray-600 space-y-1">
+                    <div><span class="text-tx"># Claude Code</span></div>
+                    <div>~/.claude/skills/feedbackcraft/SKILL.md</div>
+                    <div class="mt-1.5"><span class="text-tx"># Codex</span></div>
+                    <div>~/.codex/skills/feedbackcraft/SKILL.md</div>
                 </div>
             </div>
-
-            <div class="bg-gray-50 rounded-xl p-6 border border-gray-100">
-                <h3 class="font-semibold text-tx-dark mb-3">使用方式</h3>
-                <div class="space-y-3 text-sm text-gray-500">
-                    <div class="flex items-start gap-3">
-                        <span class="w-5 h-5 bg-tx/10 text-tx rounded flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">1</span>
+            <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+                <h3 class="font-semibold text-tx-dark mb-2 text-sm">使用方式</h3>
+                <div class="space-y-2.5 text-xs text-gray-500">
+                    <div class="flex items-start gap-2.5">
+                        <span class="w-4 h-4 bg-tx/10 text-tx rounded flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">1</span>
                         <span>从 GitHub 下载 SKILL.md 文件</span>
                     </div>
-                    <div class="flex items-start gap-3">
-                        <span class="w-5 h-5 bg-tx/10 text-tx rounded flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">2</span>
+                    <div class="flex items-start gap-2.5">
+                        <span class="w-4 h-4 bg-tx/10 text-tx rounded flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">2</span>
                         <span>放入对应 AI 工具的 skills 目录</span>
                     </div>
-                    <div class="flex items-start gap-3">
-                        <span class="w-5 h-5 bg-tx/10 text-tx rounded flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">3</span>
+                    <div class="flex items-start gap-2.5">
+                        <span class="w-4 h-4 bg-tx/10 text-tx rounded flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">3</span>
                         <span>在对话中说"帮我写一份绩效反馈"即可触发</span>
                     </div>
                 </div>
-                <a href="https://github.com/pxlm570/ai-performance-feedback-generator" target="_blank" class="mt-5 inline-flex items-center gap-2 bg-tx-dark text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-800 transition-colors">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                <a href="https://github.com/pxlm570/feedbackcraft" target="_blank" class="mt-4 inline-flex items-center gap-1.5 bg-tx-dark text-white px-3.5 py-1.5 rounded-lg text-xs hover:bg-gray-800 transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                     GitHub 仓库
                 </a>
             </div>
@@ -193,74 +167,65 @@
 </section>
 
 <!-- About -->
-<section id="about" class="py-16 bg-gray-50 border-t border-gray-100">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="grid md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="font-semibold text-tx-dark mb-2 text-sm">技术架构</h3>
-                <p class="text-gray-400 text-xs leading-relaxed">基于 AI Agent Skill 格式，跨平台兼容 Claude Code 和 Codex。数据本地处理，零服务器依赖。</p>
-            </div>
-            <div>
-                <h3 class="font-semibold text-tx-dark mb-2 text-sm">设计理念</h3>
-                <p class="text-gray-400 text-xs leading-relaxed">结构化输入 → 专业框架处理 → 结构化输出。内置 SMART 建议、2:1 正负比等 HR 最佳实践。</p>
-            </div>
-            <div>
-                <h3 class="font-semibold text-tx-dark mb-2 text-sm">适用场景</h3>
-                <p class="text-gray-400 text-xs leading-relaxed">季度评估、1:1 准备、晋升推荐、入职评估。支持正式、温和、直接三种语气风格。</p>
-            </div>
+<section id="about" class="py-10 bg-gray-50 border-t border-gray-100">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-6">
+        <div>
+            <h3 class="font-semibold text-tx-dark mb-1 text-sm">技术架构</h3>
+            <p class="text-gray-400 text-xs leading-relaxed">基于 AI Agent Skill 格式，跨平台兼容 Claude Code 和 Codex。数据本地处理，零服务器依赖。</p>
+        </div>
+        <div>
+            <h3 class="font-semibold text-tx-dark mb-1 text-sm">设计理念</h3>
+            <p class="text-gray-400 text-xs leading-relaxed">结构化输入 → 专业框架处理 → 结构化输出。内置 SMART 建议、2:1 正负比等 HR 最佳实践。</p>
+        </div>
+        <div>
+            <h3 class="font-semibold text-tx-dark mb-1 text-sm">适用场景</h3>
+            <p class="text-gray-400 text-xs leading-relaxed">季度评估、1:1 准备、晋升推荐、入职评估。支持正式、温和、直接三种语气风格。</p>
         </div>
     </div>
 </section>
 
 <!-- Footer -->
-<footer class="py-8 bg-tx-dark">
-    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-3">
+<footer class="py-6 bg-tx-dark">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-2">
         <div class="flex items-center gap-2">
-            <div class="w-6 h-6 bg-tx rounded flex items-center justify-center"><span class="text-white text-[10px] font-bold">PF</span></div>
-            <span class="text-white text-sm">智能绩效反馈生成器</span>
+            <div class="w-5 h-5 bg-tx rounded flex items-center justify-center"><span class="text-white text-[8px] font-bold">FC</span></div>
+            <span class="text-white text-xs">FeedbackCraft</span>
         </div>
-        <div class="text-xs text-gray-500">腾讯 AI-HR 培训生线上实战营 Demo</div>
+        <div class="text-[11px] text-gray-500">腾讯 AI-HR 培训生线上实战营 Demo</div>
     </div>
 </footer>
 
 <script>
-// Input helpers
 function addInput(containerId, inputClass, label) {
-    const container = document.getElementById(containerId);
-    const count = container.querySelectorAll('input').length;
-    if (count >= 5) return;
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.placeholder = `第${count + 1}条${label}`;
-    input.className = inputClass + ' w-full px-3 py-2 border border-gray-200 rounded-lg text-sm';
-    container.appendChild(input);
+    const c = document.getElementById(containerId);
+    if (c.querySelectorAll('input').length >= 5) return;
+    const i = document.createElement('input');
+    i.type = 'text'; i.placeholder = `第${c.children.length + 1}条${label}`;
+    i.className = inputClass + ' w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm';
+    c.appendChild(i); i.focus();
 }
 
-// Fill example data
 function fillExample() {
     document.getElementById('emp-name').value = '张伟';
     document.getElementById('emp-role').value = '高级后端工程师';
     document.getElementById('emp-period').value = 'Q2 2026';
     document.getElementById('tone').value = 'formal';
-
-    const achContainer = document.getElementById('achievements-container');
-    achContainer.innerHTML = '';
+    const ac = document.getElementById('achievements-container');
+    ac.innerHTML = '';
     ['主导支付系统微服务化改造，按期交付零线上事故', '核心API响应时间从200ms降至120ms，降幅达40%', '主动承担2名初级工程师导师工作，其中1名已独立负责模块'].forEach(t => {
-        const inp = document.createElement('input');
-        inp.type = 'text'; inp.value = t; inp.className = 'achievement-input w-full px-3 py-2 border border-gray-200 rounded-lg text-sm';
-        achContainer.appendChild(inp);
+        const i = document.createElement('input'); i.type = 'text'; i.value = t;
+        i.className = 'achievement-input w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm';
+        ac.appendChild(i);
     });
-
-    const impContainer = document.getElementById('improvements-container');
-    impContainer.innerHTML = '';
+    const ic = document.getElementById('improvements-container');
+    ic.innerHTML = '';
     ['技术文档输出不够及时，影响后续维护', '跨团队沟通主动性有待提升'].forEach(t => {
-        const inp = document.createElement('input');
-        inp.type = 'text'; inp.value = t; inp.className = 'improvement-input w-full px-3 py-2 border border-gray-200 rounded-lg text-sm';
-        impContainer.appendChild(inp);
+        const i = document.createElement('input'); i.type = 'text'; i.value = t;
+        i.className = 'improvement-input w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm';
+        ic.appendChild(i);
     });
 }
 
-// Generate feedback
 function generateFeedback() {
     const name = document.getElementById('emp-name').value.trim();
     const role = document.getElementById('emp-role').value.trim();
@@ -268,82 +233,39 @@ function generateFeedback() {
     const tone = document.getElementById('tone').value;
     const achievements = [...document.querySelectorAll('.achievement-input')].map(i => i.value.trim()).filter(Boolean);
     const improvements = [...document.querySelectorAll('.improvement-input')].map(i => i.value.trim()).filter(Boolean);
-
     if (!name || !role || !period) { alert('请填写员工姓名、岗位和评估周期'); return; }
-    if (achievements.length === 0) { alert('请至少填写一条成就'); return; }
+    if (!achievements.length) { alert('请至少填写一条成就'); return; }
 
-    const toneConfig = {
+    const to = {
         formal: { opener: `在过去的一个周期中，${name}展现了出色的专业能力和职业素养`, style: '正式' },
         gentle: { opener: `${name}在本周期取得了令人欣喜的进步，以下是一些值得关注的亮点`, style: '温和' },
         direct: { opener: `${name}本周期核心工作完成情况如下，以数据和事实为基础进行评估`, style: '直接' },
-    };
-    const tc = toneConfig[tone];
+    }[tone];
 
-    // Build strengths
-    let strengths = achievements.map((a, i) => `<strong>${i + 1}. </strong>${a}`).join('<br>');
+    const strengths = achievements.map((a, i) => `<strong>${i + 1}.</strong> ${a}`).join('<br>');
+    const imprText = improvements.length ? improvements.map((a, i) => `<strong>${i + 1}.</strong> ${a}`).join('<br>') : '<em>未提供改进领域信息</em>';
+    const suggestions = improvements.length
+        ? improvements.map((a, i) => `<strong>${i + 1}.</strong> 针对"${a}"，建议在下一周期制定具体改进计划，设定可衡量的目标和时间节点。`).join('<br>')
+        : '<strong>1.</strong> 建议在下一周期设定更具挑战性的目标，持续提升专业能力。';
 
-    // Build improvements
-    let imprText = improvements.length > 0
-        ? improvements.map((a, i) => `<strong>${i + 1}. </strong>${a}`).join('<br>')
-        : '<em>未提供改进领域信息</em>';
-
-    // Build suggestions
-    let suggestions = improvements.length > 0
-        ? improvements.map((a, i) => `<strong>${i + 1}. </strong>针对"${a}"，建议在下一周期制定具体改进计划，设定可衡量的目标和时间节点。`).join('<br>')
-        : '<strong>1. </strong>建议在下一周期设定更具挑战性的目标，持续提升专业能力。';
-
-    const toneTag = `<span class="tag tag-${tone}">${tc.style}</span>`;
-
-    const output = `
-<div class="space-y-5">
-    <div>${toneTag}</div>
-
-    <div>
-        <h4 class="font-semibold text-tx-dark text-xs uppercase tracking-wider mb-2">总体评价</h4>
-        <p>${tc.opener}。</p>
-    </div>
-
-    <div>
-        <h4 class="font-semibold text-tx-dark text-xs uppercase tracking-wider mb-2">核心优势</h4>
-        <div class="space-y-1">${strengths}</div>
-    </div>
-
-    <div>
-        <h4 class="font-semibold text-tx-dark text-xs uppercase tracking-wider mb-2">发展建议</h4>
-        <div class="space-y-1">${suggestions}</div>
-    </div>
-
-    <div>
-        <h4 class="font-semibold text-tx-dark text-xs uppercase tracking-wider mb-2">待改进领域</h4>
-        <div class="space-y-1">${imprText}</div>
-    </div>
-
-    <div>
-        <h4 class="font-semibold text-tx-dark text-xs uppercase tracking-wider mb-2">下一步</h4>
-        <p>建议在下一次 1:1 中重点讨论改进计划的制定与执行，明确优先级和时间节点。</p>
-    </div>
+    document.getElementById('output-area').innerHTML = `
+<div class="space-y-4">
+    <div><span class="tag tag-${tone}">${to.style}</span></div>
+    <div><h4 class="font-semibold text-tx-dark text-xs uppercase tracking-wider mb-1.5">总体评价</h4><p>${to.opener}。</p></div>
+    <div><h4 class="font-semibold text-tx-dark text-xs uppercase tracking-wider mb-1.5">核心优势</h4><div class="space-y-1">${strengths}</div></div>
+    <div><h4 class="font-semibold text-tx-dark text-xs uppercase tracking-wider mb-1.5">发展建议</h4><div class="space-y-1">${suggestions}</div></div>
+    <div><h4 class="font-semibold text-tx-dark text-xs uppercase tracking-wider mb-1.5">待改进领域</h4><div class="space-y-1">${imprText}</div></div>
+    <div><h4 class="font-semibold text-tx-dark text-xs uppercase tracking-wider mb-1.5">下一步</h4><p>建议在下一次 1:1 中重点讨论改进计划的制定与执行，明确优先级和时间节点。</p></div>
 </div>`;
-
-    document.getElementById('output-area').innerHTML = output;
-    document.getElementById('copy-btn').style.display = 'block';
+    document.getElementById('copy-btn').classList.remove('hidden');
 }
 
-// Copy feedback
 function copyFeedback() {
-    const text = document.getElementById('output-area').innerText;
-    navigator.clipboard.writeText(text).then(() => {
-        const btn = document.getElementById('copy-btn');
-        btn.textContent = '已复制';
-        setTimeout(() => btn.textContent = '复制', 2000);
+    navigator.clipboard.writeText(document.getElementById('output-area').innerText).then(() => {
+        const b = document.getElementById('copy-btn'); b.textContent = '已复制';
+        setTimeout(() => b.textContent = '复制', 2000);
     });
 }
-
-// Scroll animations
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
-
 </body>
 </html>
