@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FeedbackCraft - 智能绩效反馈生成器</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
+    <link rel="icon" type="image/x-icon" href="favicon.ico?v=3">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=3">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: { extend: { colors: { 'tx': '#0052D9', 'tx-dark': '#1A1A2E' } } }
-        }
+        tailwind.config = { theme: { extend: { colors: { 'tx': '#0052D9', 'tx-dark': '#1A1A2E' } } } }
     </script>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
@@ -25,7 +22,11 @@
         .output-scroll { max-height: calc(100vh - 180px); overflow-y: auto; }
         .hero-jb { background: #0D1117; position: relative; overflow: hidden; }
         .hero-jb::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 600px; background: radial-gradient(ellipse, rgba(0,122,255,0.15) 0%, rgba(0,82,217,0.08) 40%, transparent 70%); pointer-events: none; }
-        .hero-jb::after { content: ''; position: absolute; top: 20%; right: 10%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(0,180,255,0.08) 0%, transparent 70%); pointer-events: none; }
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .comparison-card { transition: all 0.3s ease; }
+        .tone-btn { transition: all 0.2s ease; }
+        .tone-btn.active { background: #0052D9; color: white; border-color: #0052D9; }
     </style>
 </head>
 <body class="bg-white text-gray-800">
@@ -39,13 +40,14 @@
         </div>
         <div class="hidden md:flex items-center gap-5 text-xs text-gray-400">
             <a href="#generator" class="hover:text-tx transition-colors">在线体验</a>
+            <a href="#comparison" class="hover:text-tx transition-colors">效果对比</a>
+            <a href="#principle" class="hover:text-tx transition-colors">工作原理</a>
             <a href="#skill-section" class="hover:text-tx transition-colors">Skill 开源</a>
-            <a href="#about" class="hover:text-tx transition-colors">关于</a>
         </div>
     </div>
 </nav>
 
-<!-- Hero - JetBrains Style -->
+<!-- Hero -->
 <section class="hero-jb pt-16 pb-12 relative">
     <div class="max-w-6xl mx-auto px-6 relative z-10">
         <div class="max-w-2xl">
@@ -68,37 +70,31 @@
     </div>
 </section>
 
-<!-- Generator (Full Screen) -->
+<!-- Generator -->
 <section id="generator" class="bg-gray-50" style="height: calc(100vh - 48px - 120px); min-height: 500px;">
     <div class="max-w-6xl mx-auto px-6 h-full py-4">
         <div class="grid lg:grid-cols-2 gap-5 h-full">
-
-            <!-- Left: Input Form -->
+            <!-- Input -->
             <div class="bg-white rounded-xl border border-gray-200 p-5 flex flex-col form-scroll">
                 <h3 class="font-semibold text-tx-dark mb-3 text-sm">员工信息</h3>
                 <div class="grid grid-cols-2 gap-3 mb-3">
-                    <div>
-                        <label class="block text-[11px] text-gray-400 mb-0.5">姓名 *</label>
-                        <input id="emp-name" type="text" placeholder="张伟" class="w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] text-gray-400 mb-0.5">岗位 *</label>
-                        <input id="emp-role" type="text" placeholder="高级后端工程师" class="w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm">
-                    </div>
+                    <div><label class="block text-[11px] text-gray-400 mb-0.5">姓名 *</label><input id="emp-name" type="text" placeholder="张伟" class="w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm"></div>
+                    <div><label class="block text-[11px] text-gray-400 mb-0.5">岗位 *</label><input id="emp-role" type="text" placeholder="高级后端工程师" class="w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm"></div>
                 </div>
                 <div class="grid grid-cols-2 gap-3 mb-3">
-                    <div>
-                        <label class="block text-[11px] text-gray-400 mb-0.5">评估周期 *</label>
-                        <input id="emp-period" type="text" placeholder="Q2 2026" class="w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm">
-                    </div>
+                    <div><label class="block text-[11px] text-gray-400 mb-0.5">评估周期 *</label><input id="emp-period" type="text" placeholder="Q2 2026" class="w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm"></div>
                     <div>
                         <label class="block text-[11px] text-gray-400 mb-0.5">语气风格 *</label>
-                        <select id="tone" class="w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm bg-white">
+                        <select id="tone" class="w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm bg-white" onchange="updateTonePreview()">
                             <option value="formal">正式（HR系统）</option>
                             <option value="gentle">温和（辅导型）</option>
                             <option value="direct">直接（数据驱动）</option>
                         </select>
                     </div>
+                </div>
+                <!-- Tone Preview -->
+                <div id="tone-preview" class="bg-blue-50 rounded-lg p-3 mb-3 text-xs text-gray-600 border border-blue-100">
+                    <span class="font-medium text-tx">语气预览：</span>在过去的一个周期中，员工展现了出色的专业能力...
                 </div>
 
                 <h3 class="font-semibold text-tx-dark mb-2 text-sm">关键成就 <span class="text-gray-400 font-normal">(2-5条)</span></h3>
@@ -120,8 +116,7 @@
                     <button onclick="fillExample()" class="px-3 py-2 border border-gray-200 rounded-lg text-xs text-gray-500 hover:border-tx hover:text-tx transition-colors">填入示例</button>
                 </div>
             </div>
-
-            <!-- Right: Output -->
+            <!-- Output -->
             <div class="bg-white rounded-xl border border-gray-200 p-5 flex flex-col">
                 <div class="flex items-center justify-between mb-3">
                     <h3 class="font-semibold text-tx-dark text-sm">生成结果</h3>
@@ -135,7 +130,100 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
 
+<!-- Comparison -->
+<section id="comparison" class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="mb-10 fade-in">
+            <span class="text-tx text-xs font-medium uppercase tracking-wider">Before & After</span>
+            <h2 class="text-2xl font-bold text-tx-dark mt-1">效果对比</h2>
+            <p class="text-gray-400 mt-1 text-sm">同一场景，传统方式与 Skill 生成的反馈质量差异</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="fade-in comparison-card bg-red-50 rounded-xl p-6 border border-red-100">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="w-6 h-6 bg-red-100 rounded-full flex items-center justify-center text-red-500 text-xs">&#10005;</span>
+                    <span class="font-semibold text-red-700 text-sm">传统方式</span>
+                </div>
+                <div class="bg-white rounded-lg p-4 text-sm text-gray-500 leading-relaxed space-y-2">
+                    <p>张伟本季度工作表现良好，能够按时完成分配的任务。</p>
+                    <p>在团队协作方面表现积极，与同事关系融洽。</p>
+                    <p>建议在下个季度继续努力，争取更好的成绩。</p>
+                </div>
+                <div class="mt-4 flex flex-wrap gap-2">
+                    <span class="tag bg-red-100 text-red-600">泛泛而谈</span>
+                    <span class="tag bg-red-100 text-red-600">无具体事例</span>
+                    <span class="tag bg-red-100 text-red-600">无改进建议</span>
+                </div>
+            </div>
+            <div class="fade-in comparison-card bg-green-50 rounded-xl p-6 border border-green-100">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-500 text-xs">&#10003;</span>
+                    <span class="font-semibold text-green-700 text-sm">Skill 生成</span>
+                </div>
+                <div class="bg-white rounded-lg p-4 text-sm text-gray-600 leading-relaxed space-y-2">
+                    <p><strong class="text-tx-dark">核心优势：</strong>主导支付系统微服务化改造，按期交付零事故；核心 API 响应时间从 200ms 降至 120ms，降幅 40%。</p>
+                    <p><strong class="text-tx-dark">发展建议：</strong>建议 Q3 完成核心系统文档补全（设定具体清单和时限）；主动参与产品和前端团队周会。</p>
+                    <p><strong class="text-tx-dark">下一步：</strong>Q3 聚焦微服务治理体系建设，下次 1:1 讨论监控方案选型。</p>
+                </div>
+                <div class="mt-4 flex flex-wrap gap-2">
+                    <span class="tag bg-green-100 text-green-600">具体事例</span>
+                    <span class="tag bg-green-100 text-green-600">量化数据</span>
+                    <span class="tag bg-green-100 text-green-600">SMART 建议</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section id="principle" class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="mb-10 fade-in">
+            <span class="text-tx text-xs font-medium uppercase tracking-wider">How It Works</span>
+            <h2 class="text-2xl font-bold text-tx-dark mt-1">工作原理</h2>
+            <p class="text-gray-400 mt-1 text-sm">5 部分结构化输出，每部分都有明确的质量标准</p>
+        </div>
+        <div class="grid md:grid-cols-5 gap-4">
+            <div class="fade-in bg-white rounded-xl p-4 border border-gray-100 text-center">
+                <div class="w-10 h-10 bg-tx/10 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-tx font-bold">1</span></div>
+                <h4 class="font-semibold text-tx-dark text-xs mb-1">总体评价</h4>
+                <p class="text-gray-400 text-[11px]">2-3 句话的高层级评估</p>
+            </div>
+            <div class="fade-in bg-white rounded-xl p-4 border border-gray-100 text-center">
+                <div class="w-10 h-10 bg-tx/10 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-tx font-bold">2</span></div>
+                <h4 class="font-semibold text-tx-dark text-xs mb-1">核心优势</h4>
+                <p class="text-gray-400 text-[11px]">引用具体成就，量化结果</p>
+            </div>
+            <div class="fade-in bg-white rounded-xl p-4 border border-gray-100 text-center">
+                <div class="w-10 h-10 bg-tx/10 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-tx font-bold">3</span></div>
+                <h4 class="font-semibold text-tx-dark text-xs mb-1">发展建议</h4>
+                <p class="text-gray-400 text-[11px]">SMART 格式的可执行建议</p>
+            </div>
+            <div class="fade-in bg-white rounded-xl p-4 border border-gray-100 text-center">
+                <div class="w-10 h-10 bg-tx/10 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-tx font-bold">4</span></div>
+                <h4 class="font-semibold text-tx-dark text-xs mb-1">待改进领域</h4>
+                <p class="text-gray-400 text-[11px]">建设性框架，正向引导</p>
+            </div>
+            <div class="fade-in bg-white rounded-xl p-4 border border-gray-100 text-center">
+                <div class="w-10 h-10 bg-tx/10 rounded-full flex items-center justify-center mx-auto mb-3"><span class="text-tx font-bold">5</span></div>
+                <h4 class="font-semibold text-tx-dark text-xs mb-1">下一步行动</h4>
+                <p class="text-gray-400 text-[11px]">明确的后续讨论方向</p>
+            </div>
+        </div>
+        <div class="mt-8 fade-in bg-white rounded-xl p-6 border border-gray-100">
+            <h3 class="font-semibold text-tx-dark text-sm mb-4">内置质量规则</h3>
+            <div class="grid md:grid-cols-2 gap-3">
+                <div class="flex items-start gap-2 text-xs text-gray-600"><span class="text-tx mt-0.5">&#10003;</span>每句反馈必须引用用户提供的具体事例</div>
+                <div class="flex items-start gap-2 text-xs text-gray-600"><span class="text-tx mt-0.5">&#10003;</span>禁止使用"工作态度积极"等模糊措辞</div>
+                <div class="flex items-start gap-2 text-xs text-gray-600"><span class="text-tx mt-0.5">&#10003;</span>正负评价保持 2:1 比例</div>
+                <div class="flex items-start gap-2 text-xs text-gray-600"><span class="text-tx mt-0.5">&#10003;</span>发展建议必须符合 SMART 原则</div>
+                <div class="flex items-start gap-2 text-xs text-gray-600"><span class="text-tx mt-0.5">&#10003;</span>绝不编造数据或成就</div>
+                <div class="flex items-start gap-2 text-xs text-gray-600"><span class="text-tx mt-0.5">&#10003;</span>信息不足时主动询问而非猜测</div>
+            </div>
         </div>
     </div>
 </section>
@@ -143,13 +231,13 @@
 <!-- Skill Section -->
 <section id="skill-section" class="py-14 bg-white">
     <div class="max-w-6xl mx-auto px-6">
-        <div class="mb-8">
+        <div class="mb-8 fade-in">
             <span class="text-tx text-xs font-medium uppercase tracking-wider">Open Source Skill</span>
             <h2 class="text-2xl font-bold text-tx-dark mt-1">Skill 开源</h2>
             <p class="text-gray-400 mt-1 text-sm">将完整 AI 能力安装到你的编程助手中</p>
         </div>
         <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+            <div class="fade-in bg-gray-50 rounded-xl p-5 border border-gray-100">
                 <h3 class="font-semibold text-tx-dark mb-2 text-sm">什么是 Skill？</h3>
                 <p class="text-gray-500 text-xs leading-relaxed mb-3">Skill 是一个 Markdown 配置文件，定义了 AI 助手在特定场景下的行为规范。安装后，AI 会按照 Skill 中的流程和质量标准来生成绩效反馈。</p>
                 <div class="bg-white rounded-lg p-3 border border-gray-100 font-mono text-[11px] text-gray-600 space-y-1">
@@ -159,7 +247,7 @@
                     <div>~/.codex/skills/feedbackcraft/SKILL.md</div>
                 </div>
             </div>
-            <div class="bg-gray-50 rounded-xl p-5 border border-gray-100">
+            <div class="fade-in bg-gray-50 rounded-xl p-5 border border-gray-100">
                 <h3 class="font-semibold text-tx-dark mb-2 text-sm">使用方式</h3>
                 <div class="space-y-2.5 text-xs text-gray-500">
                     <div class="flex items-start gap-2.5">
@@ -184,24 +272,6 @@
     </div>
 </section>
 
-<!-- About -->
-<section id="about" class="py-10 bg-gray-50 border-t border-gray-100">
-    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-6">
-        <div>
-            <h3 class="font-semibold text-tx-dark mb-1 text-sm">技术架构</h3>
-            <p class="text-gray-400 text-xs leading-relaxed">基于 AI Agent Skill 格式，跨平台兼容 Claude Code 和 Codex。数据本地处理，零服务器依赖。</p>
-        </div>
-        <div>
-            <h3 class="font-semibold text-tx-dark mb-1 text-sm">设计理念</h3>
-            <p class="text-gray-400 text-xs leading-relaxed">结构化输入 → 专业框架处理 → 结构化输出。内置 SMART 建议、2:1 正负比等 HR 最佳实践。</p>
-        </div>
-        <div>
-            <h3 class="font-semibold text-tx-dark mb-1 text-sm">适用场景</h3>
-            <p class="text-gray-400 text-xs leading-relaxed">季度评估、1:1 准备、晋升推荐、入职评估。支持正式、温和、直接三种语气风格。</p>
-        </div>
-    </div>
-</section>
-
 <!-- Footer -->
 <footer class="py-6 bg-tx-dark">
     <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-2">
@@ -214,6 +284,11 @@
 </footer>
 
 <script>
+// Scroll animations
+const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Add input
 function addInput(containerId, inputClass, label) {
     const c = document.getElementById(containerId);
     if (c.querySelectorAll('input').length >= 5) return;
@@ -223,20 +298,31 @@ function addInput(containerId, inputClass, label) {
     c.appendChild(i); i.focus();
 }
 
+// Tone preview
+function updateTonePreview() {
+    const tone = document.getElementById('tone').value;
+    const previews = {
+        formal: '在过去的一个周期中，员工展现了出色的专业能力和职业素养...',
+        gentle: '员工在本周期取得了令人欣喜的进步，以下是一些值得关注的亮点...',
+        direct: '员工本周期核心工作完成情况如下，以数据和事实为基础进行评估...'
+    };
+    document.getElementById('tone-preview').innerHTML = `<span class="font-medium text-tx">语气预览：</span>${previews[tone]}`;
+}
+
+// Fill example
 function fillExample() {
     document.getElementById('emp-name').value = '张伟';
     document.getElementById('emp-role').value = '高级后端工程师';
     document.getElementById('emp-period').value = 'Q2 2026';
     document.getElementById('tone').value = 'formal';
-    const ac = document.getElementById('achievements-container');
-    ac.innerHTML = '';
+    updateTonePreview();
+    const ac = document.getElementById('achievements-container'); ac.innerHTML = '';
     ['主导支付系统微服务化改造，按期交付零线上事故', '核心API响应时间从200ms降至120ms，降幅达40%', '主动承担2名初级工程师导师工作，其中1名已独立负责模块'].forEach(t => {
         const i = document.createElement('input'); i.type = 'text'; i.value = t;
         i.className = 'achievement-input w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm';
         ac.appendChild(i);
     });
-    const ic = document.getElementById('improvements-container');
-    ic.innerHTML = '';
+    const ic = document.getElementById('improvements-container'); ic.innerHTML = '';
     ['技术文档输出不够及时，影响后续维护', '跨团队沟通主动性有待提升'].forEach(t => {
         const i = document.createElement('input'); i.type = 'text'; i.value = t;
         i.className = 'improvement-input w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-sm';
@@ -244,6 +330,7 @@ function fillExample() {
     });
 }
 
+// Generate feedback
 function generateFeedback() {
     const name = document.getElementById('emp-name').value.trim();
     const role = document.getElementById('emp-role').value.trim();
@@ -278,6 +365,7 @@ function generateFeedback() {
     document.getElementById('copy-btn').classList.remove('hidden');
 }
 
+// Copy
 function copyFeedback() {
     navigator.clipboard.writeText(document.getElementById('output-area').innerText).then(() => {
         const b = document.getElementById('copy-btn'); b.textContent = '已复制';
